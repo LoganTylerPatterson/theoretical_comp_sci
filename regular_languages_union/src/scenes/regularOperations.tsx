@@ -30,7 +30,7 @@ export default makeScene2D(function* (view) {
     yield * polygon().sides(8, 3.5)
 
     yield * all(
-      polygon().opacity(0.0, 4),
-      language().opacity(0.0, 4)
+      polygon().opacity(0.0, 3),
+      language().opacity(0.0, 3)
     )
 });
