@@ -7,6 +7,6 @@ import closedScene from './scenes/closed?scene';
 import audio from '../audio/AudioFinal.mp3';
 
 export default makeProject({
-  scenes: [regularOperations],
+  scenes: [regularOperations, operationsScene, closedScene],
   audio: audio,
 });

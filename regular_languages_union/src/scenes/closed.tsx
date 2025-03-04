@@ -83,11 +83,13 @@ export default makeScene2D(function* (view) {
                 tex={'+'}
                 fill={'white'}
                 fontSize={32}
+                position={unionText().position().addY(75)}
             />
             <Latex
                 tex={'*'}
                 fill={'white'}
                 fontSize={32}
+                position={unionText().position().addY(-75)}
             />
         </Layout>
     )
