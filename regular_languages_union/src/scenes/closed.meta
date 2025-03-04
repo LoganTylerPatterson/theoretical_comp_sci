@@ -1,5 +1,14 @@
 {
   "version": 0,
-  "timeEvents": [],
+  "timeEvents": [
+    {
+      "name": "showOperation",
+      "targetTime": 5.254814443329989
+    },
+    {
+      "name": "showNDFA",
+      "targetTime": 31.99606947973518
+    }
+  ],
   "seed": 1747203523
 }
