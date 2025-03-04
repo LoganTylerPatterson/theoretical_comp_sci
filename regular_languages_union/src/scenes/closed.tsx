@@ -83,13 +83,11 @@ export default makeScene2D(function* (view) {
                 tex={'+'}
                 fill={'white'}
                 fontSize={32}
-                top={unionText().bottom().addY(75)}
             />
             <Latex
                 tex={'*'}
                 fill={'white'}
                 fontSize={32}
-                bottom={unionText().top().addY(-75)}
             />
         </Layout>
     )
@@ -229,65 +227,6 @@ export default makeScene2D(function* (view) {
             fontSize={32}
         />
     )
-
-    yield * ndfaText().tex('Non-deterministic \\ Finite \\ Automata', 1);
-
-    const ndfa = createRef<Layout>();
-    const root = createRef<Circle>();
-    const leftChild = createRef<Circle>(); 
-    const rightChild = createRef<Circle>();
-    const line1 = createRef<Line>();
-    const line2 = createRef<Line>();
-
-    view.add(
-        <>
-            <Layout ref={ndfa}>
-                <Circle
-                    ref={root}
-                    size={0}
-                    stroke={'paleturquoise'}
-                    lineWidth={4}
-                />
-                
-                <Circle
-                    ref={leftChild}
-                    size={0}
-                    stroke={'paleturquoise'}
-                    lineWidth={4}
-                />
-                <Circle
-                    ref={rightChild}
-                    size={0}
-                    stroke={'paleturquoise'}
-                    lineWidth={4}
-                />
-            </Layout>
-            <Line
-                ref={line1}
-                lineWidth={4}
-                radius={40}
-                stroke={'white'}
-                points={[
-                    [150, 50],
-                    [0, -50],
-                    [-150, 50],
-                ]}
-            />
-        </>
-    )
-    yield * ndfaText().position(ndfaText().position().addY(-400), 2)
-
-    yield all(
-        root().size(120, 1),
-        leftChild().size(120, 1),
-        rightChild().size(120,1),
-        root().position(root().position().addY(-250), 1),
-        leftChild().position(leftChild().position().addX(-150), 1),
-        rightChild().position(rightChild().position().addX(150), 1),
-    )
-    yield * line1().points([getPointOnCircle(root(), 4 * Math.PI / 3), getPointOnCircle(leftChild(), 4 * Math.PI / 3)], 1)
-
-    yield * waitFor(10);
 });
 
 function shrink(node: Reference<Shape>, duration: number): ThreadGenerator {

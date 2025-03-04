@@ -125,7 +125,7 @@ export default makeScene2D(function* (view) {
                 tex="\ goodPotato,"
                 fill="PaleGreen"
                 fontSize={42}
-                top={[0, lang1().position().y - 450]}
+                position={[0, lang1().position().y - 450]}
                 scale={0}
             />
             <Latex
@@ -133,7 +133,7 @@ export default makeScene2D(function* (view) {
                 tex="\ appleBad,"
                 fill="PaleGreen"
                 fontSize={42}
-                top={[0, lang2().position().y - 450]}
+                position={[0, lang2().position().y - 450]}
                 scale={0}
             />
             <Latex
@@ -141,7 +141,7 @@ export default makeScene2D(function* (view) {
                 tex="\ applePotato \}"
                 fill="PaleGreen"
                 fontSize={42}
-                top={[0, lang2().position().y - 450]}
+                position={[0, lang2().position().y - 450]}
                 scale={0}
             />  
         </>
@@ -193,7 +193,7 @@ export default makeScene2D(function* (view) {
                 tex="\ apple,"
                 fill="IndianRed"
                 fontSize={42}
-                top={[0, lang1().position().y - 450]}
+                position={[0, lang1().position().y - 450]}
                 scale={0}
             />
             <Latex
@@ -201,7 +201,7 @@ export default makeScene2D(function* (view) {
                 tex="\ bad,"
                 fill="CornflowerBlue"
                 fontSize={42}
-                top={[0, lang2().position().y - 450]}
+                position={[0, lang2().position().y - 450]}
                 scale={0}
             />
             <Latex
@@ -209,7 +209,7 @@ export default makeScene2D(function* (view) {
                 tex="\ potato \}"
                 fill="CornflowerBlue"
                 fontSize={42}
-                top={[0, lang2().position().y - 450]}
+                position={[0, lang2().position().y - 450]}
                 scale={0}
             />  
         </>
