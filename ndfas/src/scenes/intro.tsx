@@ -1,7 +1,6 @@
 import { Circle, Line, makeScene2D } from "@motion-canvas/2d";
 import { all, createRef, Reference, ThreadGenerator, Vector2, waitFor } from "@motion-canvas/core";
 
-
 export default makeScene2D(function* (view){
   const s1 = createRef<Circle>();
   const s2 = createRef<Circle>();
