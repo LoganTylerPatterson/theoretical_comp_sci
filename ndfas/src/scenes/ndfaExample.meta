@@ -1,0 +1,22 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show_path",
+      "targetTime": 17.676211064375487
+    },
+    {
+      "name": "show_epsilon",
+      "targetTime": 30.1228589455851
+    },
+    {
+      "name": "demonstrate_epsilon",
+      "targetTime": 36.86145166107624
+    },
+    {
+      "name": "end",
+      "targetTime": 41.77544723390391
+    }
+  ],
+  "seed": 1981402149
+}

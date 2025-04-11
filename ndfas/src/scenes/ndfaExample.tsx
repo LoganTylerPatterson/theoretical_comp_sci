@@ -1,24 +1,22 @@
 import { Circle, Latex, Line, makeScene2D } from "@motion-canvas/2d";
-import { all, createRef, Reference, ThreadGenerator, Vector2, waitFor } from "@motion-canvas/core";
+import { all, createRef, Reference, ThreadGenerator, Vector2, waitFor, waitUntil } from "@motion-canvas/core";
 
 export default makeScene2D(function* (view) {
     const s1 = createRef<Circle>();
     const s2 = createRef<Circle>();
-    const s3 = createRef<Circle>();
-    const s4 = createRef<Circle>();
 
     const l0 = createRef<Line>();
-    const l1 = createRef<Line>();
+    const l1 = createRef<Circle>();
     const l2 = createRef<Line>();
-    const l3 = createRef<Line>();
 
-    const s2s3 = createRef<Latex>();
-    const s2s4 = createRef<Latex>();
+    const s1s1 = createRef<Latex>();
+    const s1s2 = createRef<Latex>();
 
     const lineWidth = 4;
     const stroke = "cornflowerblue";
     const lightRed = "coral"
     const white = "white"
+    const animationTime = 1;
 
     view.add(
         <>
@@ -26,7 +24,7 @@ export default makeScene2D(function* (view) {
                 ref={l0}
                 lineWidth={lineWidth}
                 stroke={stroke}
-                points={[]}
+                points={[[-624, 0], [-623, 0]]}
                 radius={200}
                 endArrow
             />
@@ -35,14 +33,30 @@ export default makeScene2D(function* (view) {
                 size={0}
                 stroke={stroke}
                 lineWidth={lineWidth}
-                position={[-550, 0]}
+                position={[-350, 0]}
+            />
+            <Latex
+                ref={s1s1}
+                tex={""}
+                fill={"white"}
+                fontSize={32}
+                position={[-350, -180]}
+            />
+            <Circle
+                ref={l1}
+                stroke={stroke}
+                lineWidth={lineWidth}
+                startAngle={135}
+                endAngle={45}
+                x={s1().x}
+                endArrow
             />
             <Line
-                ref={l1}
+                ref={l2}
                 lineWidth={lineWidth}
                 stroke={stroke}
                 points={[]}
-                radius={500}
+                radius={200}
                 endArrow
             />
             <Circle
@@ -51,87 +65,105 @@ export default makeScene2D(function* (view) {
                 stroke={stroke}
                 lineWidth={lineWidth}
             />
+            <Latex
+                ref={s1s2}
+                tex={""}
+                fill={"white"}
+                fontSize={32}
+                position={[-185, -120]}
+            />
+        </>
+    )
+
+    yield * s1().size(140, 1)
+    yield * drawStartStateArrow(l0, s1);
+
+    yield * s2().size(140, 1)
+    yield * drawSelfTransitionArrowTop(s1,l1);
+    yield* s1s1().tex("1", animationTime);
+    yield * drawTopTransitionArrow(s1, s2, l2);
+    yield * s1s2().tex("1", animationTime);
+
+    yield* waitUntil("show_path")
+
+    // color the paths
+    yield * l0().stroke(lightRed, animationTime);
+    yield * s1().stroke(lightRed, animationTime);
+
+    yield * all(
+        l0().stroke(stroke, animationTime),
+        l1().stroke(lightRed, animationTime),
+        s1().stroke(lightRed, animationTime)
+    )
+    
+    yield * all(
+        l1().stroke(stroke, animationTime),
+        l2().stroke(lightRed, animationTime),
+        s1().stroke(stroke,animationTime),
+        s2().stroke(lightRed, animationTime),
+    )
+
+    yield* waitUntil('show_epsilon')
+    yield* all(
+        s2().stroke(stroke,animationTime),
+        l2().stroke(stroke,animationTime),
+    )
+    //draw another state, line, and latex for the epsilon symbol
+    const s3 = createRef<Circle>();
+    const l3 = createRef<Line>();
+    const s2s3 = createRef<Latex>();
+    view.add(
+        <>
+            <Circle
+                ref={s3}
+                size={0}
+                stroke={stroke}
+                lineWidth={lineWidth}
+                position={[350, 0]}
+            />
             <Line
-                ref={l2}
+                ref={l3}
                 lineWidth={lineWidth}
                 stroke={stroke}
-                points={[[0, 0], [0, 0], [1, 0]]}
-                radius={500}
+                points={[]}
+                radius={200}
                 endArrow
             />
             <Latex
                 ref={s2s3}
                 tex={""}
                 fill={"white"}
-                fontSize={42}
-            />
-            <Circle
-                ref={s3}
-                size={0}
-                stroke={stroke}
-                lineWidth={lineWidth}
-                position={[550, 0]}
-            />
-
-      //ndfa path
-            <Circle
-                ref={s4}
-                size={0}
-                stroke={stroke}
-                lineWidth={lineWidth}
-                position={[550, 300]}
-            />
-            <Line
-                ref={l3}
-                lineWidth={lineWidth}
-                stroke={stroke}
-                points={[[0, 0], [0, 0], [1, 0]]}
-                radius={500}
-                endArrow
-            />
-            <Latex
-                ref={s2s4}
-                tex={""}
-                fill={"white"}
-                fontSize={42}
+                fontSize={32}
+                position={[175, -120]}
             />
         </>
     )
 
-    yield * s1().size(120, 1)
-    yield * drawStartStateArrow(l0, s1);
+    yield * s3().size(140, 1)
+    yield * drawTopTransitionArrow(s2, s3, l3);
+    yield * s2s3().tex("ε", animationTime);
 
-    yield * s2().size(120, 1)
-    yield * drawTopTransitionArrow(s1, s2, l1);
-
-    yield * s3().size(120, 1)
-    yield * drawTopTransitionArrow(s2, s3, l2);
-
-    // draw alternate from s2 to s4
-    yield * s4().size(120, 1)
-    yield * drawLineAtAngles(s2, s4, l3, 7 * Math.PI / 4, 3 * Math.PI / 4);
-
-    // color the paths
-    yield * s1().stroke(lightRed, .5);
-    yield * l1().stroke(lightRed, .5);
-
+    yield* waitUntil('demonstrate_epsilon')
+    yield* s2().stroke(lightRed, animationTime);
     yield * all(
-        s2().stroke(lightRed, .5),
-        l1().stroke("white", .5),
-        s1().stroke("white", .5)
+        s2().stroke(stroke, animationTime),
+        l3().stroke(lightRed, animationTime)
     )
+    yield* s3().stroke(lightRed, animationTime);
 
-    yield * all(
-        s2().stroke(white, .5),
-        l2().stroke(lightRed, .5),
-        s3().stroke(lightRed, .5),
-        l3().stroke(lightRed, .5),
-        s4().stroke(lightRed, .5),
-        s2s3().tex("x", .5),
-        s2s4().tex("x", .5)
+    yield* waitUntil('end');
+    yield* all(
+        s1().opacity(0, 1),
+        s2().opacity(0, 1),
+        s3().opacity(0, 1),
+        l0().opacity(0, 1),
+        l1().opacity(0, 1),
+        l2().opacity(0, 1),
+        l3().opacity(0, 1),
+        s1s1().opacity(0, 1),
+        s1s2().opacity(0, 1),
+        s2s3().opacity(0, 1),
     )
-
-    yield * waitFor(20);
 })
 
 function drawLineAtAngles(circle1: Reference<Circle>, circle2: Reference<Circle>, line: Reference<Line>, angle1: number, angle2: number): ThreadGenerator {

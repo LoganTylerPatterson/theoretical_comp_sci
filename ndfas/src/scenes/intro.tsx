@@ -1,5 +1,5 @@
 import { Circle, Line, makeScene2D } from "@motion-canvas/2d";
-import { all, createRef, Reference, ThreadGenerator, Vector2, waitFor } from "@motion-canvas/core";
+import { all, createRef, Reference, ThreadGenerator, Vector2, waitFor, waitUntil } from "@motion-canvas/core";
 
 export default makeScene2D(function* (view){
   const s1 = createRef<Circle>();
@@ -12,6 +12,7 @@ export default makeScene2D(function* (view){
   
   const lineWidth = 4;
   const stroke = "cornflowerblue";
+  const lightRed = "coral";
   
   view.add(
     <>
@@ -19,7 +20,7 @@ export default makeScene2D(function* (view){
         ref={l0}
         lineWidth={lineWidth}
         stroke={stroke}
-        points={[]}
+        points={[[-624, 0], [-623, 0]]}
         radius={200}
         endArrow
       />
@@ -62,16 +63,44 @@ export default makeScene2D(function* (view){
     </>
   )
 
-  yield* s1().size(120, 1)
-  yield* drawStartStateArrow(l0, s1);
+  yield* all(
+	s1().size(120, .5),
+	s2().size(120, .5),
+	s3().size(120, .5),
+  );
 
-  yield* s2().size(120, 1)
-  yield* drawTopTransitionArrow(s1, s2, l1);
+  yield * all(
+	drawStartStateArrow(l0, s1),
+	drawTopTransitionArrow(s1, s2, l1),
+	drawTopTransitionArrow(s2, s3, l2)
+)
 
-  yield* s3().size(120, 1)
-  yield* drawTopTransitionArrow(s2, s3, l2); 
+  yield* waitUntil('showPath');
 
-  yield* waitFor(20);
+  yield* l0().stroke(lightRed, .5);
+  yield* s1().stroke(lightRed, 1);
+  yield* l0().stroke(stroke, .5);
+  yield* l1().stroke(lightRed, .5);
+  yield* all(
+    s1().stroke(stroke, 1),
+    s2().stroke(lightRed, 1),
+    l1().stroke(stroke, 1)
+  );
+  yield* all(
+    l2().stroke(lightRed, 1),
+    s3().stroke(lightRed, 1),
+    s2().stroke(stroke, 1)
+  );
+
+  yield* waitUntil('end');
+  yield* all(
+    l0().opacity(0, 1),
+    l1().opacity(0, 1),
+    l2().opacity(0, 1),
+    s1().opacity(0, 1),
+    s2().opacity(0, 1),
+    s3().opacity(0, 1),
+  )
 });
 
 function drawStartStateArrow(arrow: Reference<Line>, circle: Reference<Circle>): ThreadGenerator {

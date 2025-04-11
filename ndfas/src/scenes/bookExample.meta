@@ -1,0 +1,34 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "q1_1",
+      "targetTime": 6.323806879332966
+    },
+    {
+      "name": "copy",
+      "targetTime": 11.151798024988292
+    },
+    {
+      "name": "move_q2",
+      "targetTime": 15.784675498056894
+    },
+    {
+      "name": "show3",
+      "targetTime": 31.463762607609596
+    },
+    {
+      "name": "follow_epsilon",
+      "targetTime": 34.6540286044618
+    },
+    {
+      "name": "flash_m1_q1",
+      "targetTime": 39.29773498943001
+    },
+    {
+      "name": "die",
+      "targetTime": 45.605358588722815
+    }
+  ],
+  "seed": 2533676901
+}
