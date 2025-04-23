@@ -28,6 +28,14 @@
     {
       "name": "die",
       "targetTime": 45.605358588722815
+    },
+    {
+      "name": "transition_to_end",
+      "targetTime": 54.99558593389628
+    },
+    {
+      "name": "fade_away",
+      "targetTime": 67.83358586503293
     }
   ],
   "seed": 2533676901

@@ -169,7 +169,8 @@ export default makeScene2D(function* (view) {
     s1().size(stateSize, 1),
     s2().size(stateSize, 1),
     s3().size(stateSize, 1),
-    s4().size(stateSize, 1)
+    s4().size(stateSize, 1),
+    s4Final().size(stateSize - 20, 1),
   );
 
   yield* all(
@@ -359,7 +360,8 @@ export default makeScene2D(function* (view) {
     cop1s1().size(stateSize, 1),
     cop1s2().size(stateSize, 1),
     cop1s3().size(stateSize, 1),
-    cop1s4().size(stateSize, 1)
+    cop1s4().size(stateSize, 1),
+    cop1s4Final().size(stateSize - 20, 1),
   );
 
   yield* all(
@@ -541,7 +543,8 @@ export default makeScene2D(function* (view) {
     cop2s1().size(stateSize, 1),
     cop2s2().size(stateSize, 1),
     cop2s3().size(stateSize, 1),
-    cop2s4().size(stateSize, 1)
+    cop2s4().size(stateSize, 1),
+    cop2s4Final().size(stateSize - 20, 1),
   );
 
   yield* all(
@@ -566,19 +569,44 @@ export default makeScene2D(function* (view) {
   yield* s1().stroke("white", .5);
   yield* s1().stroke(lightRed, 1);
 
-  yield* cop1s2().stroke("white", .5);
-  yield* cop1s2().stroke(lightRed, 1);
+  yield* cop1s2().stroke(stroke, 1);
+  yield* cop1ls1s2().stroke(stroke, 1);
+  yield* cop1s3().stroke("white", .5);
+  yield* cop1s3().stroke(lightRed, 1);
 
   yield* waitUntil('die');
-  yield* machine3().opacity(0,1);
+  yield* all(
+    machine3().opacity(0,1),
+    cop2ls2s3().stroke(stroke, 1),
+  )
+  
 
   yield* all(
     machine2().position(machine2().position().addY(200), 2),
-    machine3().position(machine3().position().addY(-100), 1),
+    machine3().position(machine1().position(), 1),
     cop2s3().stroke(stroke, 1)
   )
-  yield* machine3().opacity(1, 0);
-  yield* waitFor(20);
+  yield* all(
+    machine3().opacity(1, 1),
+    machine3().position(machine3().position().addY(100), 1),
+  )
+  yield* cop2s2().stroke(lightRed,1);
+  yield* waitUntil('transition_to_end');
+  yield* all(
+    cop1s3().stroke(stroke,1),
+    cop1ls3s4().stroke(lightRed,1),
+  )
+  yield* all(
+    cop1s4().stroke(lightRed, 1),
+    cop1ls3s4().stroke(stroke, 1)
+  )
+  yield* waitUntil("fade_away");
+  yield* all(
+    machine1().opacity(0,1),
+    machine3().opacity(0,1),
+    machine2().position(machine2().position().addY(-200), 1)
+  )
+  yield* machine2().opacity(0, 2)
 });
 
 function* flash(object: Reference<Shape>) {

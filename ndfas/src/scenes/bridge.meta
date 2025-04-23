@@ -1,0 +1,22 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "conversion",
+      "targetTime": 9.011670312782966
+    },
+    {
+      "name": "show_same",
+      "targetTime": 10.011670312782966
+    },
+    {
+      "name": "show_simplicity",
+      "targetTime": 22.305172459223385
+    },
+    {
+      "name": "to_next",
+      "targetTime": 32.63003076687484
+    }
+  ],
+  "seed": 630178729
+}
