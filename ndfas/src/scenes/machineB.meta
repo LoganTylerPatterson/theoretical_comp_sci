@@ -1,5 +1,10 @@
 {
   "version": 0,
-  "timeEvents": [],
+  "timeEvents": [
+    {
+      "name": "both paths",
+      "targetTime": 8.654266915603888
+    }
+  ],
   "seed": 3382918689
 }

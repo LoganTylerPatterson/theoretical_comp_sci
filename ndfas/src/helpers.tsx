@@ -33,8 +33,9 @@ export function drawLineAtAngles(
 ): ThreadGenerator {
     let p1 = getPointOnCircle(circle1(), angle1);
     let p2 = getPointOnCircle(circle2(), angle2);
+    line().points([p1, p2]);
     return all(
-        line().points([p1, p2], 1),
+        line().end(1, 1),
     )
 }
 
@@ -72,12 +73,13 @@ export function drawTopTransitionArrow(
 ): ThreadGenerator {
     let p1 = getPointOnCircle(circle1(), Math.PI / 4);
     let p2 = getPointOnCircle(circle2(), 3 * Math.PI / 4);
-    return line().points([
+    line().points([
         p1,
         [(p2.x - p1.x) / 2 + p1.x, p1.y - 100],
         p2,
-    ], 1)
-}
+    ])
+    return all(line().end(1, 1));
+ }
 
 export function drawBottomTransitionArrow(
     circle1: Reference<Circle>, 
@@ -86,12 +88,13 @@ export function drawBottomTransitionArrow(
 ): ThreadGenerator {
     let p1 = getPointOnCircle(circle2(), 5 * Math.PI / 4);
     let p2 = getPointOnCircle(circle1(), 7 * Math.PI / 4);
+    line().points([
+        p1,
+        [(p2.x - p1.x) / 2 + p1.x, p1.y + 100],
+        p2,
+    ]);
     return all(
-        line().points([
-            p2,
-            [(p2.x - p1.x) / 2 + p1.x, p1.y + 100],
-            p1,
-        ], 1),
+        line().end(1, 1),
     );
 }
 
