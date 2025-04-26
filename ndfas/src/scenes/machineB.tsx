@@ -1,5 +1,5 @@
 import { Circle, drawLine, Img, Latex, Line, makeScene2D, Polygon, Rect } from "@motion-canvas/2d";
-import { all, createRef, createSignal, Reference, ThreadGenerator, Vector2, waitFor, waitUntil } from "@motion-canvas/core";
+import { all, createRef, createSignal, fadeTransition, Reference, sequence, ThreadGenerator, Vector2, waitFor, waitUntil } from "@motion-canvas/core";
 import { 
     drawLineAtAngles,
     drawStartStateArrow,
@@ -263,20 +263,36 @@ export default makeScene2D(function* (view) {
         flash(ts1s2, blue, lightRed, 1.5),
         flash(ts1s4, blue, lightRed, 1.5)
     )
+    yield* all(
+        circle1(),
+        circle2()
+    )
 
-    circleBranch1();
-    circleBranch2();
+    yield* all(
+        circle1(),
+        circle2()
+    )
 
-    function* circleBranch1() {
-        yield* flash(ts2s3, blue, lightRed, 1);
-        yield* flash(ts3s2, blue, lightRed, 1);
+    yield* waitUntil("done");
+
+    yield* all(
+        machineBNfa().scale(0, 1),
+        machineBNfa().opacity(0, 1)
+    )
+    
+    function circle1() : ThreadGenerator {
+        return sequence(1,
+            flash(ts2s3, blue, lightRed, 1),
+            flash(ts3s2, blue, lightRed, 1)
+        ) 
     }
 
-    function* circleBranch2() {
-        yield* flash(ts4s5, blue, lightRed, 1);
-        yield* flash(ts5s6, blue, lightRed, 1);
-        yield* flash(ts6s4, blue, lightRed, 1);
+    function circle2(): ThreadGenerator {
+        return sequence(1, 
+            flash(ts4s5, blue, lightRed, 1),
+            flash(ts5s6, blue, lightRed, 1),
+            flash(ts6s4, blue, lightRed, 1)
+        )
     }
-
-    yield* waitFor(20);
 });
+

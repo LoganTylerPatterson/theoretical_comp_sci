@@ -4,6 +4,10 @@
     {
       "name": "both paths",
       "targetTime": 8.654266915603888
+    },
+    {
+      "name": "done",
+      "targetTime": 23.202564494915002
     }
   ],
   "seed": 3382918689
