@@ -9,8 +9,9 @@ import bridge from './scenes/bridge?scene';
 import examples from './scenes/examples?scene';
 import machineB from './scenes/machineB?scene';
 import nfaFormal from './scenes/nfaFormal?scene';
+import nfaCompFormal from './scenes/nfaCompFormal?scene';
 
 export default makeProject({
-  scenes: [intro, ndfaExample, bookExample, tree, bridge, examples, machineB, nfaFormal],
+  scenes: [intro, ndfaExample, bookExample, tree, bridge, examples, machineB, nfaFormal, nfaCompFormal],
   audio: audio
 });
