@@ -83,11 +83,79 @@ export default makeScene2D(function* (view) {
         q0Definition().opacity(0, 1),
         fDefinition().opacity(0, 1),
     )
+
     yield* all(
         fontSize(40, 1),
-        deltaDefinition().position([0, 0], 1),
     )
+    yield* definition().position(definition().position().addY(-300), 1)
 
-    yield* deltaDefinition().position(deltaDefinition().position().addY(-200), 1);
+    const graphBox = createRef<Rect>();
+    const q1 = createRef<Latex>();
+    const q2 = createRef<Latex>();
+    const vertLine = createRef<Line>();
+    const horizLine = createRef<Line>();
+    const topLine = createRef<Latex>();
+    const q1Line = createRef<Latex>();
+    const q2Line = createRef<Latex>();
+    const end = createSignal(0);
+    view.add(
+        <>
+            <Line
+                ref={vertLine}
+                points={[[-270, -150], [-270, 100]]}
+                lineWidth={lineWidth}
+                stroke={white}
+                end={end}
+            />
+            <Line
+                ref={horizLine}
+                points={[[-350, -100], [0, -100]]}
+                lineWidth={lineWidth}
+                stroke={white}
+                end={end}
+            />
+
+            <Rect ref={graphBox} scale={0}>
+                <Latex
+                    ref={topLine}
+                    tex={"0 \\ \\ \\ \\ \\ \\  1 \\ \\ \\ \\ \\ \\epsilon"}
+                    fontSize={fontSize}
+                    fill={white}
+                    position={[-140, -135]}
+                />
+                <Latex
+                    ref={q1Line}
+                    tex={"q1 \\ \\ \\ \\ \\  q2 \\ \\ \\ \\  q2"}
+                    fontSize={fontSize}
+                    fill={white}
+                    position={[-125, -65]}
+                />
+                <Latex
+                    ref={q2Line}
+                    tex={"q2 \\ \\ \\ \\ \\  q2 \\ \\ \\ \\  \\emptyset"}
+                    fontSize={fontSize}
+                    fill={white}
+                    position={[-135, 30]}
+                />
+                <Latex
+                    ref={q1}
+                    tex={"q1"}
+                    fontSize={fontSize}
+                    fill={white}
+                    position={[-310, -65]}
+                />
+                <Latex
+                    ref={q2}
+                    tex={"q2"}
+                    fontSize={fontSize}
+                    fill={white}
+                    position={[-310, 30]}
+                />
+            </Rect>
+        </>
+    )
+    yield* waitUntil("draw graph");
+    yield* end(1, 1);
+    yield* graphBox().scale(1, 1);
     yield* waitUntil("done");
-});
+}); 
