@@ -1,0 +1,18 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "emphasis",
+      "targetTime": 4.822325086508576
+    },
+    {
+      "name": "scale",
+      "targetTime": 11.642479889607898
+    },
+    {
+      "name": "the end",
+      "targetTime": 18.6424798896079
+    }
+  ],
+  "seed": 1899752247
+}

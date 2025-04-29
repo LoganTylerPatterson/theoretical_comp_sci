@@ -1,4 +1,4 @@
-import { Circle, drawLine, Img, Latex, Line, makeScene2D, Polygon, Rect } from "@motion-canvas/2d";
+import { Circle, drawLine, Img, Latex, Line, makeScene2D, Path, Polygon, Rect } from "@motion-canvas/2d";
 import { all, createRef, createSignal, fadeTransition, Reference, sequence, ThreadGenerator, Vector2, waitFor, waitUntil } from "@motion-canvas/core";
 import {
     drawLineAtAngles,
@@ -54,11 +54,60 @@ export default makeScene2D(function* (view) {
                 fontSize={fontSize}
             />
             <Latex
-                ref={deltaDefinition}
+                ref={fDefinition}
                 tex={"3. \\ q_n \\in F, \\text{ where } F \\subseteq Q \\text{ is the set of accept states.}"}
                 fill={white}
                 fontSize={fontSize}
             />
         </Rect>
+    )
+
+    yield* fontSize(32, 1);
+    yield* waitUntil("emphasis");
+    yield* deltaDefinition().fill(lightRed, 1);
+    yield* waitFor(3);
+    yield* deltaDefinition().fill(white, 1);
+    yield* waitUntil("scale");
+    yield* definition().scale(0, 1);
+
+    const dfa = createRef<Polygon>();
+    const nfa = createRef<Polygon>();
+    view.add(
+        <>
+            <Polygon
+                ref={dfa}
+                sides={16}
+                size={160}
+                stroke={blue}
+                lineWidth={4}
+                position={[-200, 0]}
+            />
+            <Polygon
+                ref={nfa}
+                sides={6}
+                size={160}
+                stroke={lightRed}
+                lineWidth={lineWidth}
+                position={[200, 0]}
+            />
+        </>
+    )
+    yield* all(
+        dfa().sides(5, 3),
+        dfa().position(dfa().position().addX(200), 3),
+        nfa().sides(17, 3),
+        nfa().position(nfa().position().addX(-200), 3),
+    )
+    yield* all(
+        dfa().stroke(white, 3),
+        nfa().stroke(white, 3),
+        dfa().lineWidth(lineWidth + 3, 3),
+        nfa().lineWidth(lineWidth + 3, 3),
+        dfa().sides(17, 3),
+    )
+    yield* waitUntil("the end");
+    yield* all(
+        dfa().opacity(0, 3),
+        nfa().opacity(0, 3),
     )
 });
