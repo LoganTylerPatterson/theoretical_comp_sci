@@ -1,0 +1,10 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "make_equal",
+      "targetTime": 14
+    }
+  ],
+  "seed": 3107197458
+}
