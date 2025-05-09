@@ -229,21 +229,49 @@ export default makeScene2D(function* (view) {
 	const dfaFinalStateSize = createSignal(0);
 
 	const d0 = createRef<Circle>();
+	const td0d0 = createRef<Circle>();
+	const ld0d0 = createRef<Latex>();
 	const d0l = createRef<Latex>();
 	const d1 = createRef<Circle>();
 	const d1l = createRef<Latex>();
+	const td1d0 = createRef<Line>();
+	const ld1d0 = createRef<Latex>();
+	const td1d2 = createRef<Line>();
+	const ld1d2 = createRef<Latex>();
 	const d2 = createRef<Circle>();
 	const d2l = createRef<Latex>();
+	const td2d3 = createRef<Line>();
+	const ld2d3 = createRef<Latex>();
+	const td2d23 = createRef<Line>();
+	const ld2d23 = createRef<Latex>();
 	const d3 = createRef<Circle>();
 	const d3l = createRef<Latex>();
+	const td3d0 = createRef<Line>();
+	const ld3d0 = createRef<Latex>();
+	const td3d13 = createRef<Line>();
+	const ld3d13 = createRef<Latex>();
 	const d12 = createRef<Circle>();
 	const d12l = createRef<Latex>();
+	const td12d23 = createRef<Line>();
+	const ld12d23 = createRef<Latex>();
 	const d13 = createRef<Circle>();
 	const d13l = createRef<Latex>();
+	const td13d23 = createRef<Line>();
+	const ld13d23 = createRef<Latex>();
+	const td13d13 = createRef<Circle>();
+	const ld13d13 = createRef<Latex>();
 	const d23 = createRef<Circle>();
 	const d23l = createRef<Latex>();
+	const td23d3 = createRef<Line>();
+	const ld23d3 = createRef<Latex>();
+	const td23d123 = createRef<Line>();
+	const ld23d123 = createRef<Latex>();
 	const d123 = createRef<Circle>();
 	const d123l = createRef<Latex>();
+	const td123d123 = createRef<Circle>();
+	const ld123d123 = createRef<Latex>();
+	const td123d23 = createRef<Line>();
+	const ld123d23 = createRef<Latex>();
 	const dfa = createRef<Rect>();
 
 	view.add(
@@ -269,6 +297,20 @@ export default makeScene2D(function* (view) {
 				/>
 			</Circle>
 			<Circle
+				ref={td0d0}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[-300, -300]}
+			/>
+			<Latex
+				ref={ld0d0}
+				fontSize={fontSize}
+				position={[-300, -300]}
+				tex={"a, b"}
+				fill={white}
+			/>
+			<Circle
 				ref={d1}
 				lineWidth={lw}
 				stroke={blue}
@@ -288,6 +330,36 @@ export default makeScene2D(function* (view) {
 					fill={white}
 				/>
 			</Circle>
+			<Line
+				ref={td1d0}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld1d0}
+				fontSize={fontSize}
+				position={[0, -300]}
+				tex={"a"}
+				fill={white}
+			/>
+			<Line
+				ref={td1d2}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld1d2}
+				fontSize={fontSize}
+				position={[0, -300]}
+				tex={"b"}
+				fill={white}
+			/>
 			<Circle
 				ref={d2}
 				lineWidth={lw}
@@ -308,6 +380,36 @@ export default makeScene2D(function* (view) {
 					fill={white}
 				/>
 			</Circle>
+			<Line
+				ref={td2d3}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld2d3}
+				fontSize={fontSize}
+				position={[300, -300]}
+				tex={"b"}
+				fill={white}
+			/>
+			<Line
+				ref={td2d23}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld2d23}
+				fontSize={fontSize}
+				position={[300, -300]}
+				tex={"a"}
+				fill={white}
+			/>
 			<Circle
 				ref={d3}
 				lineWidth={lw}
@@ -328,6 +430,36 @@ export default makeScene2D(function* (view) {
 					fill={white}
 				/>
 			</Circle>
+			<Line
+				ref={td3d0}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld3d0}
+				fontSize={fontSize}
+				position={[-300, 100]}
+				tex={"b"}
+				fill={white}
+			/>
+			<Line
+				ref={td3d13}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld3d13}
+				fontSize={fontSize}
+				position={[0, 100]}
+				tex={"a"}
+				fill={white}
+			/>
 			<Circle
 				ref={d12}
 				lineWidth={lw}
@@ -348,6 +480,21 @@ export default makeScene2D(function* (view) {
 					fill={white}
 				/>
 			</Circle>
+			<Line
+				ref={td12d23}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld12d23}
+				fontSize={fontSize}
+				position={[600, -300]}
+				tex={"a"}
+				fill={white}
+			/>
 			<Circle
 				ref={d13}
 				lineWidth={lw}
@@ -368,6 +515,37 @@ export default makeScene2D(function* (view) {
 					fill={white}
 				/>
 			</Circle>
+			<Line
+				ref={td13d23}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld13d23}
+				fontSize={fontSize}
+				position={[0, 100]}
+				tex={"b"}
+				fill={white}
+			/>
+			<Circle
+				ref={td13d13}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[0, 100]}
+				startAngle={-45}
+				endAngle={-135}
+			/>
+			<Latex
+				ref={ld13d13}
+				fontSize={fontSize}
+				position={[0, 100]}
+				tex={"a"}
+				fill={white}
+			/>
 			<Circle
 				ref={d23}
 				lineWidth={lw}
@@ -388,6 +566,36 @@ export default makeScene2D(function* (view) {
 					fill={white}
 				/>
 			</Circle>
+			<Line
+				ref={td23d3}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld23d3}
+				fontSize={fontSize}
+				position={[300, 100]}
+				tex={"a"}
+				fill={white}
+			/>
+			<Line
+				ref={td23d123}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld23d123}
+				fontSize={fontSize}
+				position={[300, 100]}
+				tex={"b"}
+				fill={white}
+			/>
 			<Circle
 				ref={d123}
 				lineWidth={lw}
@@ -408,6 +616,37 @@ export default makeScene2D(function* (view) {
 					fill={white}
 				/>
 			</Circle>
+			<Circle
+				ref={td123d123}
+				lineWidth={lw}
+				stroke={blue}
+				startAngle={-45}
+				endAngle={-135}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld123d123}
+				fontSize={fontSize}
+				position={[600, 100]}
+				tex={"a,b"}
+				fill={white}
+			/>
+			<Line
+				ref={td123d23}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
+			/>
+			<Latex
+				ref={ld123d23}
+				fontSize={fontSize}
+				position={[600, 100]}
+				tex={"b"}
+				fill={white}
+			/>
 		</Rect>
 	)
 
@@ -463,13 +702,6 @@ export default makeScene2D(function* (view) {
 	)
 
 	yield* waitUntil("empty_state_ab");
-	const td0d0 = createRef<Circle>();
-	const ld0d0 = createRef<Latex>();
-	view.add(
-		<>
-
-		</>
-	)
 	yield* drawSelfTransitionArrowTop(d0, td0d0);
 
 
