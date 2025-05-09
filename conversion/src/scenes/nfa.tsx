@@ -9,7 +9,9 @@ import {
 	drawBottomTransitionArrow,
 	getPointOnCircle,
 	flash,
-	flashAndHold
+	flashAndHold,
+	shiftHorizontal,
+	shiftVertical
 } from '../../helpers';
 
 export default makeScene2D(function* (view) {
@@ -42,7 +44,7 @@ export default makeScene2D(function* (view) {
 	const nfa = createRef<Rect>();
 
 	view.add(
-		<Rect ref={nfa} scale={.8}>
+		<Rect ref={nfa} scale={1}>
 			<Circle
 				ref={n1}
 				lineWidth={lw}
@@ -200,6 +202,276 @@ export default makeScene2D(function* (view) {
 		acceptState(100, 1)
 	);
 	yield* fontSize(32, 1);
+
+	yield* waitUntil("scale_and_move");
+	yield* all(
+		nfa().scale(0.75, 3),
+		shiftHorizontal(nfa, -600, 3),
+	)
+	yield* shiftVertical(nfa, 100, 3);
+
+	const k2 = createRef<Latex>();
+	view.add(
+		<Latex
+			ref={k2}
+			fontSize={fontSize() + 20}
+			position={[0, 0]}
+			tex={""}
+			fill={white}
+		/>
+	)
+	yield* waitUntil("show_k2");
+	yield* k2().tex("2^k", 1);
+
+	yield* waitUntil("show_states");
+	yield* k2().tex("", 1);
+
+	const dfaFinalStateSize = createSignal(0);
+
+	const d0 = createRef<Circle>();
+	const d0l = createRef<Latex>();
+	const d1 = createRef<Circle>();
+	const d1l = createRef<Latex>();
+	const d2 = createRef<Circle>();
+	const d2l = createRef<Latex>();
+	const d3 = createRef<Circle>();
+	const d3l = createRef<Latex>();
+	const d12 = createRef<Circle>();
+	const d12l = createRef<Latex>();
+	const d13 = createRef<Circle>();
+	const d13l = createRef<Latex>();
+	const d23 = createRef<Circle>();
+	const d23l = createRef<Latex>();
+	const d123 = createRef<Circle>();
+	const d123l = createRef<Latex>();
+	const dfa = createRef<Rect>();
+
+	view.add(
+		<Rect ref={dfa} scale={1} position={[300, 100]}>
+			<Circle
+				ref={d0}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[-300, -300]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d0l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"\\emptyset"}
+					fill={white}
+				/>
+			</Circle>
+			<Circle
+				ref={d1}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[-0, -300]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d1l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"1"}
+					fill={white}
+				/>
+			</Circle>
+			<Circle
+				ref={d2}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[300, -300]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d2l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"2"}
+					fill={white}
+				/>
+			</Circle>
+			<Circle
+				ref={d3}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[-300, 100]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d3l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"3"}
+					fill={white}
+				/>
+			</Circle>
+			<Circle
+				ref={d12}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[600, -300]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d12l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"12"}
+					fill={white}
+				/>
+			</Circle>
+			<Circle
+				ref={d13}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[0, 100]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d13l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"13"}
+					fill={white}
+				/>
+			</Circle>
+			<Circle
+				ref={d23}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[300, 100]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d23l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"23"}
+					fill={white}
+				/>
+			</Circle>
+			<Circle
+				ref={d123}
+				lineWidth={lw}
+				stroke={blue}
+				size={0}
+				position={[600, 100]}
+			>
+				<Circle
+					lineWidth={lw}
+					stroke={blue}
+					size={dfaFinalStateSize}
+				/>
+				<Latex
+					ref={d123l}
+					fontSize={fontSize}
+					position={[0, 0]}
+					tex={"123"}
+					fill={white}
+				/>
+			</Circle>
+		</Rect>
+	)
+
+	yield* waitUntil("show_dfa_states");
+	const err = createRef<Latex>();
+	view.add(<Latex ref={err} fontSize={fontSize() + 20} position={[0, 0]} tex={"*\\ NO\\ STATE\\ \\ 0\\ * \\ :)"} fill={white} />);
+
+	yield* d1().size(120, 1);
+	yield* d2().size(120, 1);
+
+	yield* all(d3().size(120, 1), err().opacity(0, 1));
+	yield* d12().size(120, 1);
+	yield* d13().size(120, 1);
+	yield* d23().size(120, 1);
+	yield* d123().size(120, 1);
+	yield* d0().size(120, 1);
+
+
+	yield* waitUntil("find_start_state");
+	yield* flashAndHold(n1, white);
+	yield* all(
+		flashAndHold(tn1n3, white),
+		flashAndHold(n3, white)
+	)
+
+
+	yield* waitUntil("combine_start_state");
+	yield* flash(d13, blue, white, 5);
+	yield* all(
+		d13().stroke(blue, 1),
+		n1().stroke(red, 1),
+		tn1n3().stroke(red, 1),
+		n3().stroke(red, 1),
+	)
+
+	yield* waitUntil("show_end_state");
+	yield* flashAndHold(n1, white)
+
+	yield* waitUntil("find_end_states");
+	yield* all(
+		flashAndHold(d1, white),
+		flashAndHold(d13, white),
+		flashAndHold(d23, white),
+		flashAndHold(d123, white),
+	)
+
+	yield* waitUntil("transitions");
+	yield* all(
+		d1().stroke(blue, 1),
+		d13().stroke(blue, 1),
+		d23().stroke(blue, 1),
+		d123().stroke(blue, 1),
+	)
+
+	yield* waitUntil("empty_state_ab");
+	const td0d0 = createRef<Circle>();
+	const ld0d0 = createRef<Latex>();
+	view.add(
+		<>
+
+		</>
+	)
+	yield* drawSelfTransitionArrowTop(d0, td0d0);
+
 
 	yield* waitFor(20);
 });

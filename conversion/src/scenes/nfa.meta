@@ -1,5 +1,46 @@
 {
   "version": 0,
-  "timeEvents": [],
+  "timeEvents": [
+    {
+      "name": "scale_and_move",
+      "targetTime": 17.35616619842784
+    },
+    {
+      "name": "show_k2",
+      "targetTime": 23.553692167527682
+    },
+    {
+      "name": "show_states",
+      "targetTime": 32.28502361520193
+    },
+    {
+      "name": "show_dfa_states",
+      "targetTime": 33.28502361520193
+    },
+    {
+      "name": "find_start_state",
+      "targetTime": 55.268234196489274
+    },
+    {
+      "name": "combine_start_state",
+      "targetTime": 61.097658168496935
+    },
+    {
+      "name": "show_end_state",
+      "targetTime": 79.31643861663694
+    },
+    {
+      "name": "find_end_states",
+      "targetTime": 95.54576546152829
+    },
+    {
+      "name": "transitions",
+      "targetTime": 114.55154632493503
+    },
+    {
+      "name": "empty_state_ab",
+      "targetTime": 142.27491625314565
+    }
+  ],
   "seed": 857739341
 }

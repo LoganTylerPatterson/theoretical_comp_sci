@@ -18,15 +18,32 @@ export default makeScene2D(function* (view) {
     const group = createRef<Rect>();
     const nfaLang = createRef<Polygon>();
     const dfaLang = createRef<Polygon>();
+    const dfaL = createRef<Latex>();
+    const nfaL = createRef<Latex>();
 
     const red = "coral";
     const blue = "cornflowerblue";
     const white = "white";
     const lw = 4;
     const rotation = createSignal(0);
+    const fontSize = createSignal(0);
 
     view.add(
         <Rect ref={group}>
+            <Latex
+                ref={nfaL}
+                fontSize={fontSize}
+                position={[-500, -400]}
+                tex={"NFA Languages"}
+                fill={blue}
+            />
+            <Latex
+                ref={dfaL}
+                fontSize={fontSize}
+                position={[500, -400]}
+                tex={"DFA Languages"}
+                fill={red}
+            />
             <Polygon
                 ref={nfaLang}
                 sides={8}
@@ -47,10 +64,11 @@ export default makeScene2D(function* (view) {
     );
 
     yield* all(
-        nfaLang().rotation(120, 5),
-        dfaLang().rotation(120, 5),
-        nfaLang().size(400, 5).to(200, 3),
-        dfaLang().size(100, 5).to(200, 3),
+        fontSize(32, 1),
+        nfaLang().rotation(120, 3),
+        dfaLang().rotation(120, 3),
+        nfaLang().size(400, 3).to(200, 3),
+        dfaLang().size(100, 3).to(200, 3),
     );
 
     yield* all(
@@ -75,8 +93,8 @@ export default makeScene2D(function* (view) {
     )
 
     yield* all(
-        flashAndHold(nfaLang, white, 3),
+        flashAndHold(nfaLang, white, 2),
     )
 
-    yield* waitFor(10);
+    yield* waitUntil("fade_out");
 })

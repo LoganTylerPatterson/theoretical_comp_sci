@@ -1,8 +1,8 @@
-import { Circle, Line, Polygon, Shape } from "@motion-canvas/2d";
+import { Circle, Latex, Line, Polygon, Shape } from "@motion-canvas/2d";
 import { all, Reference, ThreadGenerator, Vector2 } from "@motion-canvas/core";
 
 export function flash(
-    element: Reference<Circle | Line | Polygon>,
+    element: Reference<Circle | Line | Polygon | Latex | Shape>,
     color: string,
     flashColor: string,
     flashTime: number = 1
@@ -19,6 +19,13 @@ export function shiftHorizontal(
     time: number = 1
 ): ThreadGenerator {
     return element().position(element().position().addX(distance), time);
+}
+export function shiftVertical(
+    element: Reference<Shape>,
+    distance: number,
+    time: number = 1
+): ThreadGenerator {
+    return element().position(element().position().addY(distance), time);
 }
 
 export function flashAndHold(
@@ -69,8 +76,7 @@ export function drawSelfTransitionArrowTop(
 ): ThreadGenerator {
     return all(
         circle().size(size, 1),
-        circle().x(state().x(), 1),
-        circle().y(state().y() - state().width() + yOffset, 1)
+        circle().position(state().position().addY(state().width() + yOffset), 1),
     )
 }
 
