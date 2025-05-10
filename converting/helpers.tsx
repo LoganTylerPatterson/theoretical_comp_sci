@@ -1,6 +1,12 @@
 import { Circle, Latex, Line, Polygon, Shape } from "@motion-canvas/2d";
 import { all, Reference, ThreadGenerator, Vector2 } from "@motion-canvas/core";
 
+export let START = Math.PI;
+export let HALF = Math.PI * 2;
+export let QUARTER = Math.PI / 2;
+export let EIGTH = Math.PI / 4;
+export let THREE_QUARTER = 3 * Math.PI / 2;
+
 export function flash(
     element: Reference<Circle | Line | Polygon | Latex | Shape>,
     color: string,
@@ -26,6 +32,17 @@ export function shiftVertical(
     time: number = 1
 ): ThreadGenerator {
     return element().position(element().position().addY(distance), time);
+}
+
+export function shiftAll(
+    element: Reference<Shape>,
+    xdistance: number,
+    ydistance: number,
+    time: number = 1
+): ThreadGenerator {
+    return all(
+        element().position([element().position().x + xdistance, element().position().y + ydistance], time),
+    )
 }
 
 export function flashAndHold(
@@ -76,7 +93,7 @@ export function drawSelfTransitionArrowTop(
 ): ThreadGenerator {
     return all(
         circle().size(size, 1),
-        circle().position(state().position().addY(state().width() + yOffset), 1),
+        circle().position(state().position().addY(state().width() - yOffset), 1),
     )
 }
 

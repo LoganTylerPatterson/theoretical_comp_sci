@@ -1,0 +1,14 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "make_equal",
+      "targetTime": 12
+    },
+    {
+      "name": "fade_out",
+      "targetTime": 26.1387907412697
+    }
+  ],
+  "seed": 463674860
+}

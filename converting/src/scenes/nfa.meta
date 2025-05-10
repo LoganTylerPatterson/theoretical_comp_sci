@@ -1,0 +1,70 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "scale_and_move",
+      "targetTime": 7
+    },
+    {
+      "name": "show_k2",
+      "targetTime": 22.71829977855099
+    },
+    {
+      "name": "show_states",
+      "targetTime": 30.345603940204363
+    },
+    {
+      "name": "show_dfa_states",
+      "targetTime": 32.15764516159272
+    },
+    {
+      "name": "find_start_state",
+      "targetTime": 44.74174883072055
+    },
+    {
+      "name": "combine_start_state",
+      "targetTime": 58.32907421872504
+    },
+    {
+      "name": "show_end_state",
+      "targetTime": 63.77576005955304
+    },
+    {
+      "name": "find_end_states",
+      "targetTime": 70.83137153464831
+    },
+    {
+      "name": "transitions",
+      "targetTime": 75.29369007692269
+    },
+    {
+      "name": "empty_state_ab",
+      "targetTime": 80.48487057441098
+    },
+    {
+      "name": "flash_1",
+      "targetTime": 85.30932277836905
+    },
+    {
+      "name": "transition_to_empty_d1",
+      "targetTime": 91.30932277836905
+    },
+    {
+      "name": "td1d2",
+      "targetTime": 94.58505545500167
+    },
+    {
+      "name": "flash_2_a",
+      "targetTime": 97.50187618882724
+    },
+    {
+      "name": "td2d23",
+      "targetTime": 105.50187618882724
+    },
+    {
+      "name": "td2d3",
+      "targetTime": 108.78542521618303
+    }
+  ],
+  "seed": 2974434342
+}
