@@ -1,5 +1,5 @@
 import { Circle, drawLine, Img, Latex, Line, makeScene2D, Polygon, Rect } from "@motion-canvas/2d";
-import { all, createRef, createSignal, fadeTransition, Reference, sequence, Stage, ThreadGenerator, Vector2, waitFor, waitUntil } from "@motion-canvas/core";
+import { all, any, createRef, createSignal, fadeTransition, Reference, sequence, Stage, ThreadGenerator, Vector2, waitFor, waitUntil } from "@motion-canvas/core";
 import {
 	drawLineAtAngles,
 	drawStartStateArrow,
@@ -235,6 +235,7 @@ export default makeScene2D(function* (view) {
 
 	const dfaFinalStateSize = createSignal(0);
 
+	const startArrow = createRef<Line>();
 	const d0 = createRef<Circle>();
 	const td0d0 = createRef<Circle>();
 	const ld0d0 = createRef<Latex>();
@@ -300,6 +301,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"\\emptyset"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -336,6 +338,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"1"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -351,7 +354,7 @@ export default makeScene2D(function* (view) {
 				ref={ld1d0}
 				fontSize={fontSize}
 				position={[0, -300]}
-				tex={"a"}
+				tex={""}
 				fill={white}
 			/>
 			<Line
@@ -366,7 +369,7 @@ export default makeScene2D(function* (view) {
 				ref={ld1d2}
 				fontSize={fontSize}
 				position={[0, -300]}
-				tex={"b"}
+				tex={""}
 				fill={white}
 			/>
 			<Circle
@@ -386,6 +389,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"2"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -436,6 +440,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"3"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -451,7 +456,7 @@ export default makeScene2D(function* (view) {
 				ref={ld3d0}
 				fontSize={fontSize}
 				position={[-300, 100]}
-				tex={"b"}
+				tex={""}
 				fill={white}
 			/>
 			<Line
@@ -466,7 +471,7 @@ export default makeScene2D(function* (view) {
 				ref={ld3d13}
 				fontSize={fontSize}
 				position={[0, 100]}
-				tex={"a"}
+				tex={""}
 				fill={white}
 			/>
 			<Circle
@@ -486,6 +491,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"12"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -501,8 +507,16 @@ export default makeScene2D(function* (view) {
 				ref={ld12d23}
 				fontSize={fontSize}
 				position={[600, -300]}
-				tex={"a"}
+				tex={""}
 				fill={white}
+			/>
+			<Line
+				ref={startArrow}
+				lineWidth={lw}
+				stroke={blue}
+				points={[]}
+				end={0}
+				endArrow
 			/>
 			<Circle
 				ref={d13}
@@ -521,6 +535,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"13"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -536,7 +551,7 @@ export default makeScene2D(function* (view) {
 				ref={ld13d23}
 				fontSize={fontSize}
 				position={[0, 100]}
-				tex={"b"}
+				tex={""}
 				fill={white}
 			/>
 			<Circle
@@ -552,7 +567,7 @@ export default makeScene2D(function* (view) {
 				ref={ld13d13}
 				fontSize={fontSize}
 				position={[0, 100]}
-				tex={"a"}
+				tex={""}
 				fill={white}
 			/>
 			<Circle
@@ -572,6 +587,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"23"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -580,6 +596,7 @@ export default makeScene2D(function* (view) {
 				lineWidth={lw}
 				stroke={blue}
 				points={[]}
+				radius={500}
 				end={0}
 				endArrow
 			/>
@@ -587,7 +604,7 @@ export default makeScene2D(function* (view) {
 				ref={ld23d3}
 				fontSize={fontSize}
 				position={[300, 100]}
-				tex={"a"}
+				tex={""}
 				fill={white}
 			/>
 			<Line
@@ -602,7 +619,7 @@ export default makeScene2D(function* (view) {
 				ref={ld23d123}
 				fontSize={fontSize}
 				position={[300, 100]}
-				tex={"b"}
+				tex={""}
 				fill={white}
 			/>
 			<Circle
@@ -622,6 +639,7 @@ export default makeScene2D(function* (view) {
 					fontSize={fontSize}
 					position={[0, 0]}
 					tex={"123"}
+					opacity={0}
 					fill={white}
 				/>
 			</Circle>
@@ -638,7 +656,7 @@ export default makeScene2D(function* (view) {
 				ref={ld123d123}
 				fontSize={fontSize}
 				position={[600, 100]}
-				tex={"a,b"}
+				tex={""}
 				fill={white}
 			/>
 			<Line
@@ -653,7 +671,7 @@ export default makeScene2D(function* (view) {
 				ref={ld123d23}
 				fontSize={fontSize}
 				position={[600, 100]}
-				tex={"b"}
+				tex={""}
 				fill={white}
 			/>
 		</Rect>
@@ -663,15 +681,40 @@ export default makeScene2D(function* (view) {
 	const err = createRef<Latex>();
 	view.add(<Latex ref={err} fontSize={fontSize() + 20} position={[0, 0]} tex={"*\\ NO\\ STATE\\ \\ 0\\ * \\ :)"} fill={white} />);
 
-	yield* d1().size(120, 1);
-	yield* d2().size(120, 1);
+	yield* all(
+		d1().size(120, 1),
+		d1l().opacity(1, 1)
+	);
+	yield* all(
+		d2().size(120, 1),
+		d2l().opacity(1, 1)
+	);
 
-	yield* all(d3().size(120, 1), err().opacity(0, 1));
-	yield* d12().size(120, 1);
-	yield* d13().size(120, 1);
-	yield* d23().size(120, 1);
-	yield* d123().size(120, 1);
-	yield* d0().size(120, 1);
+	yield* all(
+		d3().size(120, 1),
+		err().opacity(0, 1),
+		d3l().opacity(1, 1)
+	);
+	yield* all(
+		d12().size(120, 1),
+		d12l().opacity(1, 1)
+	);
+	yield* all(
+		d13().size(120, 1),
+		d13l().opacity(1, 1)
+	);
+	yield* all(
+		d23().size(120, 1),
+		d23l().opacity(1, 1)
+	);
+	yield* all(
+		d123().size(120, 1),
+		d123l().opacity(1, 1)
+	);
+	yield* all(
+		d0().size(120, 1),
+		d0l().opacity(1, 1)
+	);
 
 
 	yield* waitUntil("find_start_state");
@@ -760,5 +803,121 @@ export default makeScene2D(function* (view) {
 		ld2d3().tex("b", 1),
 	);
 
+
+	yield* waitUntil("flash_3a");
+	yield* all(flash(n3, red, white, 2), flash(tn3n1, red, white, 2));
+
+	yield* waitUntil("back_around");
+	yield* all(flash(n1, red, white, 2), flash(tn1n3, red, white, 2));
+
+	yield* waitUntil("d3d13");
+	yield* all(
+		drawLineAtAngles(d3, d13, td3d13, HALF, START),
+		ld3d13().tex("a", 1),
+		shiftAll(ld3d13, -150, -20, 1),
+	);
+
+	yield* waitUntil("d3d0");
+	yield* all(
+		drawLineAtAngles(d3, d0, td3d0, QUARTER, 3 * Math.PI / 2),
+		ld3d0().tex("b", 1),
+		shiftAll(ld3d0, -30, -200, 1),
+	);
+
+	yield* waitUntil("flashn1n2");
+	yield* all(
+		flash(n1, red, white, 2),
+		flash(n2, red, white, 2),
+	)
+
+	yield* waitUntil("flash_2a_again");
+	yield* flash(n2, red, white, 2)
+	yield* any(
+		tn1n2().opacity(1, 1),
+		flash(tn2n2, red, white, 2),
+		flash(tn2n3, red, white, 2),
+	)
+
+	yield* waitUntil("d12d23");
+	yield* all(
+		drawLineAtAngles(d12, d23, td12d23, 5 * Math.PI / 4, Math.PI / 4),
+		ld12d23().tex("a", 1),
+		shiftAll(ld12d23, -150, 150, 1),
+	)
+
+	yield* waitUntil("n1n2onb");
+	yield* all(
+		flash(n1, red, white, 2),
+		flash(tn1n2, red, white, 2),
+	)
+
+	yield* any(
+		n2().opacity(1, 1),
+		flash(n2, red, white, 2),
+		flash(tn2n3, red, white, 2),
+	)
+
+	yield* waitUntil("add_b");
+	yield* all(
+		ld12d23().tex("a, b", 1),
+		shiftHorizontal(ld12d23, -20, 1)
+	);
+
+	yield* waitUntil("fhash_23");
+	yield* any(
+		n2().opacity(1, 1),
+		flash(n2, red, white, 2),
+		flash(n3, red, white, 2),
+	)
+
+	yield* waitUntil("flash_2a_3");
+	yield* any(
+		tn1n2().opacity(1, 1),
+		flash(tn2n2, red, white, 2),
+		flash(tn2n3, red, white, 2),
+	)
+
+	yield* waitUntil("flash_3a_2");
+	yield* all(flash(n3, red, white, 2), flash(tn3n1, red, white, 2));
+
+	yield* waitUntil("back_around-2");
+	yield* all(flash(n1, red, white, 2), flash(tn1n3, red, white, 2));
+
+	yield* waitUntil("d23d123");
+	yield* all(
+		drawLineAtAngles(d23, d123, td23d123, HALF, START),
+		ld23d123().tex("a", 1),
+		shiftAll(ld23d123, 125, 35, 1),
+	)
+
+	yield* waitUntil("d23onb");
+	yield* flash(tn2n3, red, white, 2)
+
+	yield* waitUntil("d23d3");
+	yield* all(
+		drawBottomTransitionArrow(d3, d23, td23d3),
+		ld23d3().tex("b", 1),
+		shiftAll(ld23d3, -300, 150, 1),
+	)
+
+	yield* waitUntil("d123ona");
+	yield* all(
+		flashAndHold(tn2n2, white, 1),
+		flashAndHold(tn2n3, white, 1),
+	)
+	yield* flashAndHold(tn3n1, white, 1);
+	yield* flashAndHold(tn1n3, white, 1);
+
+	yield* all(
+		flashAndHold(tn2n2, red, 1),
+		flashAndHold(tn2n3, red, 1),
+		flashAndHold(tn3n1, red, 1),
+		flashAndHold(tn1n3, red, 1),
+	)
+
+	yield* waitUntil("d123d123");
+	yield* all(
+		drawSelfTransitionArrowTop(d123, td123d123, 120, 205),
+	)
 	yield* waitFor(20);
 });
