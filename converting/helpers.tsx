@@ -91,9 +91,10 @@ export function drawSelfTransitionArrowTop(
     size: number = 120,
     yOffset: number = 45
 ): ThreadGenerator {
+    circle().position(state().position().addY(state().width() - yOffset))
     return all(
         circle().size(size, 1),
-        circle().position(state().position().addY(state().width() - yOffset), 1),
+        circle().end(1, 1)
     )
 }
 

@@ -283,7 +283,7 @@ export default makeScene2D(function* (view) {
 	const dfa = createRef<Rect>();
 
 	view.add(
-		<Rect ref={dfa} scale={1} position={[300, 100]}>
+		<Rect ref={dfa} scale={1} position={[200, 100]} >
 			<Circle
 				ref={d0}
 				lineWidth={lw}
@@ -313,6 +313,7 @@ export default makeScene2D(function* (view) {
 				position={[-300, -300]}
 				startAngle={135}
 				endAngle={45}
+				endArrow
 			/>
 			<Latex
 				ref={ld0d0}
@@ -647,8 +648,8 @@ export default makeScene2D(function* (view) {
 				ref={td123d123}
 				lineWidth={lw}
 				stroke={blue}
-				startAngle={-45}
-				endAngle={-135}
+				startAngle={135}
+				endAngle={45}
 				end={0}
 				endArrow
 			/>
@@ -664,6 +665,7 @@ export default makeScene2D(function* (view) {
 				lineWidth={lw}
 				stroke={blue}
 				points={[]}
+				radius={200}
 				end={0}
 				endArrow
 			/>
@@ -674,7 +676,7 @@ export default makeScene2D(function* (view) {
 				tex={""}
 				fill={white}
 			/>
-		</Rect>
+		</Rect >
 	)
 
 	yield* waitUntil("show_dfa_states");
@@ -918,6 +920,49 @@ export default makeScene2D(function* (view) {
 	yield* waitUntil("d123d123");
 	yield* all(
 		drawSelfTransitionArrowTop(d123, td123d123, 120, 205),
+		ld123d123().tex("a", 1),
+		shiftVertical(ld123d123, -170)
+	)
+
+	yield* waitUntil("d123onb");
+	yield* flashAndHold(tn1n2, white, 1);
+	yield* flashAndHold(tn2n2, white, 1);
+	yield* flashAndHold(tn2n3, white, 1);
+
+	yield* all(
+		flashAndHold(n2, white, 1),
+		flashAndHold(n3, white, 1)
+	);
+
+	yield* waitUntil("last_one");
+	yield* all(
+		drawBottomTransitionArrow(d23, d123, td123d23),
+		ld123d23().tex("b", 1),
+		shiftAll(ld123d23, -150, 115)
+	)
+
+	yield* waitUntil("take a closer look");
+	yield* all(
+		nfa().opacity(0, 2),
+		shiftHorizontal(dfa, -200, 2),
+	);
+
+	yield* waitUntil("highlight unreachable");
+	yield* all(
+		flashAndHold(d1, white, 2),
+		flashAndHold(d12, white, 2)
+	)
+
+	yield* waitUntil("removal");
+	yield* all(
+		d1().opacity(0, 1),
+		td1d0().opacity(0, 1),
+		td1d2().opacity(0, 1),
+		ld1d0().opacity(0, 1),
+		ld1d2().opacity(0, 1),
+		d12().opacity(0, 1),
+		td12d23().opacity(0, 1),
+		ld12d23().opacity(0, 1)
 	)
 	yield* waitFor(20);
 });
