@@ -560,9 +560,10 @@ export default makeScene2D(function* (view) {
 				lineWidth={lw}
 				stroke={blue}
 				size={0}
-				position={[0, 100]}
-				startAngle={-45}
-				endAngle={-135}
+				position={[0, -100]}
+				startAngle={135}
+				endAngle={45}
+				endArrow
 			/>
 			<Latex
 				ref={ld13d13}
@@ -900,6 +901,23 @@ export default makeScene2D(function* (view) {
 		drawBottomTransitionArrow(d3, d23, td23d3),
 		ld23d3().tex("b", 1),
 		shiftAll(ld23d3, -300, 150, 1),
+	)
+
+	yield* waitUntil("flash_23")
+	yield* all(
+		flashAndHold(n1, white, 1),
+		flashAndHold(n3, white, 1)
+	)
+
+	yield* waitUntil("n12_ona")
+	yield* flashAndHold(tn3n1, white);
+	yield* flashAndHold(tn1n3, white);
+
+	yield* all(
+		drawSelfTransitionArrowTop(d13, td13d13),
+		shiftVertical(td13d13, -160),
+		ld13d13().tex("a", 1),
+		shiftAll(ld13d13, 0, -165)
 	)
 
 	yield* waitUntil("d123ona");
