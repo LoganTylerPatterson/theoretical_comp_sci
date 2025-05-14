@@ -909,16 +909,28 @@ export default makeScene2D(function* (view) {
 		flashAndHold(n3, white, 1)
 	)
 
-	yield* waitUntil("n12_ona")
+	yield* waitUntil("n13_ona")
 	yield* flashAndHold(tn3n1, white);
 	yield* flashAndHold(tn1n3, white);
 
+	yield* waitUntil("show_d13");
 	yield* all(
 		drawSelfTransitionArrowTop(d13, td13d13),
 		shiftVertical(td13d13, -160),
 		ld13d13().tex("a", 1),
 		shiftAll(ld13d13, 0, -165)
 	)
+
+	yield* waitUntil("n13_onb");
+	yield* all(
+		flashAndHold(n1, white, 1),
+		flashAndHold(tn1n2, white, 1)
+	)
+	yield* waitUntil("d13_d2");
+	yield* all(
+
+	)
+
 
 	yield* waitUntil("d123ona");
 	yield* all(
